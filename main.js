@@ -22,10 +22,10 @@ document.getElementById('searchIp').addEventListener('click', function() {
             //alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}`);
             const location = `${country}, ${region}`;
             // Update the HTML elements with the data
-            document.getElementById('ipAddress').innerText = `IP Address: ${ip}`;
-            document.getElementById('location').innerText = `Location: ${location}`;
-            document.getElementById('timeZone').innerText = `Time Zone: ${timezone}`;
-            document.getElementById('isp').innerText = `ISP: ${isp}`;
+            document.getElementById('ipAddress').innerText = `${ip}`;
+            document.getElementById('location').innerText = `${location}`;
+            document.getElementById('timeZone').innerText = `${timezone}`;
+            document.getElementById('isp').innerText = `${isp}`;
         
         })
         .catch(error => {
