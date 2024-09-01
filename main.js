@@ -1,7 +1,6 @@
 // Function to fetch and display IP info
 function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
-    // Default URL uses client's public IP address if no IP is provided
     const url = `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`;
     
     fetch(url)
@@ -10,18 +9,18 @@ function fetchIpInfo(ipAddress = '') {
             console.log(data); // Check the full response in the console
             
             // Extract relevant data
-            const ip = data.ip;
-            const country = data.location.country;
-            const region = data.location.region;
-            const timezone = data.location.timezone;
-            const isp = data.isp;
+            const ip = data.ip || 'N/A';
+            const country = data.location.country || 'N/A';
+            const region = data.location.region || 'N/A';
+            const timezone = data.location.timezone || 'N/A';
+            const isp = data.isp || 'N/A';
             const location = `${country}, ${region}`;
             
             // Update the HTML elements with the data
-            document.getElementById('ipAddress').innerText = `${ip}`;
-            document.getElementById('location').innerText = `${location}`;
-            document.getElementById('timeZone').innerText = `${timezone}`;
-            document.getElementById('isp').innerText = `${isp}`;
+            document.getElementById('ipAddress').innerText = `IP Address: ${ip}`;
+            document.getElementById('location').innerText = `Location: ${location}`;
+            document.getElementById('timeZone').innerText = `Time Zone: ${timezone}`;
+            document.getElementById('isp').innerText = `ISP: ${isp}`;
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
@@ -31,7 +30,7 @@ function fetchIpInfo(ipAddress = '') {
 
 // Fetch and display user's IP info on page load
 document.addEventListener('DOMContentLoaded', () => {
-    fetchIpInfo(); // No IP address provided, so it will use the client's public IP
+    fetchIpInfo(); // Fetch info for client's public IP address
 });
 
 // Handle the search functionality
