@@ -1,3 +1,15 @@
+document.getElementById('ipInput').addEventListener('input', function(e) {
+    // Remove all characters except numbers and dots
+    this.value = this.value.replace(/[^0-9.]/g, '');
+
+    // Optional: Ensure only one dot is allowed
+    if ((this.value.match(/\./g) || []).length > 1) {
+        this.value = this.value.replace(/\.(?=.*\.)/g, '');
+    }
+});
+
+
+
 // Function to fetch and display IP info
 function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
