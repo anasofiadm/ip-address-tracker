@@ -6,251 +6,282 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IP Address Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <style>
         body {
-    font-family: 'Rubik', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-    color: hsl(0, 0%, 17%);
-    background-image: url('./images/pattern-bg-desktop.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center top;
-}
+            font-family: 'Rubik', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: hsl(0, 0%, 17%);
+            background-image: url('./images/pattern-bg-desktop.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center top;
+        }
 
-.container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative; /* Required for map alignment */
-}
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            /* Required for map alignment */
+        }
 
-.tracker-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    color: white;
-}
+        .tracker-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: white;
+        }
 
-.search-bar {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-}
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
 
-.search-bar input[type="text"] {
-    width: 100%;
-    max-width: 440px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px 0px 0px 10px;
-    font-size: 18px;
-    outline: none;
-    font-weight: 400;
-}
+        .search-bar input[type="text"] {
+            width: 100%;
+            max-width: 440px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px 0px 0px 10px;
+            font-size: 18px;
+            outline: none;
+            font-weight: 400;
+        }
 
-.search-bar input::placeholder {
-    font-size: 15px;
-    margin-left: 10px; /* Slight margin to the left */
-}
+        .search-bar input::placeholder {
+            font-size: 15px;
+            margin-left: 10px;
+            /* Slight margin to the left */
+        }
 
-.search-bar button {
-    padding: 0 20px;
-    background-color: black;
-    border: none;
-    border-radius: 0 10px 10px 0; /* Match input rounding */
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .search-bar button {
+            padding: 0 20px;
+            background-color: black;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            /* Match input rounding */
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.search-bar button:hover {
-    background-color: hsl(0, 0%, 17%);
-}
+        .search-bar button:hover {
+            background-color: hsl(0, 0%, 17%);
+        }
 
-.search-bar button:focus {
-    outline: none;
-}
+        .search-bar button:focus {
+            outline: none;
+        }
 
-.info-rectangle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0 auto; /* Center container */
-    border-radius: 10px; /* Rounded corners */
-    max-width: 700px; /* Approximate width */
-    font-weight: 500;
-}
+        .info-rectangle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            /* Center container */
+            border-radius: 10px;
+            /* Rounded corners */
+            max-width: 700px;
+            /* Approximate width */
+            font-weight: 500;
+        }
 
-.info-col {
-    flex: 1;
-    text-align: left;
-    padding: 0 15px;
-    color: hsl(0, 0%, 17%);
-    font-size: 14px;
-    margin: 5px 0;
-}
+        .info-col {
+            flex: 1;
+            text-align: left;
+            padding: 0 15px;
+            color: hsl(0, 0%, 17%);
+            font-size: 14px;
+            margin: 5px 0;
+        }
 
-.info-title {
-    color: hsl(0, 0%, 59%);
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: uppercase; /* Uppercase titles */
-}
+        .info-title {
+            color: hsl(0, 0%, 59%);
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            /* Uppercase titles */
+        }
 
-.info-text {
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 7px; /* Margin above text */
-}
+        .info-text {
+            font-weight: 700;
+            font-size: 20px;
+            margin-top: 7px;
+            /* Margin above text */
+        }
 
-.info-col:not(:last-child) {
-    border-right: 1px solid hsl(0, 0%, 59%);
-    position: relative;
-}
+        .info-col:not(:last-child) {
+            border-right: 1px solid hsl(0, 0%, 59%);
+            position: relative;
+        }
 
-.info-col:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 20px;
-    background-color: hsl(0, 0%, 59%);
-}
+        .info-col:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 20px;
+            background-color: hsl(0, 0%, 59%);
+        }
 
-.map-container {
-    position: absolute; /* Position the map container relative to its parent */
-    left: 50%; /* Start the map from the middle horizontally */
-    transform: translateX(-50%); /* Center map horizontally */
-    top: 75%; /* Align with the middle of the info container */
-    width: 100%;
-    height: calc(100vh - 50%); /* Extend map to the bottom of the viewport */
-    background-color: lightgrey;
-    text-align: center;
-    line-height: 400px;
-    color: darkgrey;
-    font-size: 18px;
-    z-index: -1; /* Ensure map is behind other elements */
-}
+        .map-container {
+            position: absolute;
+            /* Position the map container relative to its parent */
+            left: 50%;
+            /* Start the map from the middle horizontally */
+            transform: translateX(-50%);
+            /* Center map horizontally */
+            top: 75%;
+            /* Align with the middle of the info container */
+            width: 100%;
+            height: calc(100vh - 50%);
+            /* Extend map to the bottom of the viewport */
+            background-color: lightgrey;
+            text-align: center;
+            line-height: 400px;
+            color: darkgrey;
+            font-size: 18px;
+            z-index: -1;
+            /* Ensure map is behind other elements */
+        }
 
-#map {
+        #map {
             height: 100vh;
             width: 100%;
         }
 
-/* Responsive Design */
-@media (max-width: 375px) {
-    body {
-        background-image: url('./images/pattern-bg-mobile.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: top center; /* Keep background pattern at the top */
-        margin: 0;
-        padding: 0;
-        height: 100vh; /* Full viewport height */
-        display: flex;
-        flex-direction: column;
-    }
+        /* Responsive Design */
+        @media (max-width: 375px) {
+            body {
+                background-image: url('./images/pattern-bg-mobile.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: top center;
+                /* Keep background pattern at the top */
+                margin: 0;
+                padding: 0;
+                height: 100vh;
+                /* Full viewport height */
+                display: flex;
+                flex-direction: column;
+            }
 
-    .container {
-        flex: 1; /* Allow container to expand and fill available space */
-        padding: 20px;
-    }
+            .container {
+                flex: 1;
+                /* Allow container to expand and fill available space */
+                padding: 20px;
+            }
 
-    .tracker-title {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: white;
-        text-align: center;
-    }
+            .tracker-title {
+                font-size: 20px;
+                margin-bottom: 15px;
+                color: white;
+                text-align: center;
+            }
 
-    .search-bar {
-        display: flex;
-        align-items: center; /* Align input and button on the same line */
-        margin-bottom: 15px;
-    }
+            .search-bar {
+                display: flex;
+                align-items: center;
+                /* Align input and button on the same line */
+                margin-bottom: 15px;
+            }
 
-    .search-bar input[type="text"] {
-        width: calc(100% - 100px); /* Adjust width to fit input and button */
-        font-size: 16px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 10px 0 0 10px;
-        margin-right: -1px; /* Remove spacing between input and button */
-    }
+            .search-bar input[type="text"] {
+                width: calc(100% - 100px);
+                /* Adjust width to fit input and button */
+                font-size: 16px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 10px 0 0 10px;
+                margin-right: -1px;
+                /* Remove spacing between input and button */
+            }
 
-    .search-bar button {
-        width: 100px; /* Fixed width for button */
-        padding: 10px;
-        background-color: black;
-        border: none;
-        border-radius: 0 10px 10px 0;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+            .search-bar button {
+                width: 100px;
+                /* Fixed width for button */
+                padding: 10px;
+                background-color: black;
+                border: none;
+                border-radius: 0 10px 10px 0;
+                color: white;
+                font-size: 16px;
+                font-weight: 700;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-    .search-bar button:hover {
-        background-color: hsl(0, 0%, 17%);
-    }
+            .search-bar button:hover {
+                background-color: hsl(0, 0%, 17%);
+            }
 
-    .info-rectangle {
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-        border-radius: 8px; /* Slightly less rounding for mobile */
-        max-width: 100%;
-        margin-bottom: 15px; /* Space above map */
-    }
+            .info-rectangle {
+                display: flex;
+                flex-direction: column;
+                padding: 15px;
+                border-radius: 8px;
+                /* Slightly less rounding for mobile */
+                max-width: 100%;
+                margin-bottom: 15px;
+                /* Space above map */
+                background-color: white;
+            }
 
-    .info-col {
-        flex: none;
-        text-align: center;
-        border-right: none;
-        margin: 5px 0;
-        padding: 5px 0; /* Add padding for better spacing */
-    }
+            .info-col {
+                flex: none;
+                text-align: center;
+                border-bottom: 1px solid hsl(0, 0%, 59%);
+                /* Horizontal border for mobile */
+                margin: 5px 0;
+                padding: 10px 0;
+                /* Adjust padding for better spacing */
+            }
 
-    .info-col:not(:last-child)::after {
-        display: none;
-    }
+            .info-col:last-child {
+                border-bottom: none;
+                /* Remove bottom border for the last column */
+            }
+        }
 
-    .map-container {
-        height: 200px; /* Fixed height for mobile */
-        background-color: lightgrey; /* Ensure map container background color is visible */
-        text-align: center;
-        line-height: 200px; /* Center text vertically if any */
-        color: darkgrey;
-        font-size: 18px;
-        z-index: -1; /* Ensure map is behind other elements */
-    }
+        .map-container {
+            height: 200px;
+            /* Fixed height for mobile */
+            background-color: lightgrey;
+            /* Ensure map container background color is visible */
+            text-align: center;
+            line-height: 200px;
+            /* Center text vertically if any */
+            color: darkgrey;
+            font-size: 18px;
+            z-index: -1;
+            /* Ensure map is behind other elements */
+        }
 
-    #map {
-        height: 100%;
-        width: 100%;
-        top:260px;
-    }
-}
-
-
+        #map {
+            height: 100%;
+            width: 100%;
+            top: 260px;
+        }
+        }
     </style>
 </head>
 
@@ -270,15 +301,15 @@
             </div>
             <div class="info-col">
                 <div class="info-title" style="color: hsl(0, 0%, 59%);">Location</div>
-                <div class="info-text"  id="location">New York, USA</div>
+                <div class="info-text" id="location">New York, USA</div>
             </div>
             <div class="info-col">
                 <div class="info-title" style="color: hsl(0, 0%, 59%);">Time Zone</div>
-                <div class="info-text"  id="timeZone">UTC -05:00</div>
+                <div class="info-text" id="timeZone">UTC -05:00</div>
             </div>
             <div class="info-col">
                 <div class="info-title" style="color: hsl(0, 0%, 59%);">ISP</div>
-                <div class="info-text"  id="isp">Verizon</div>
+                <div class="info-text" id="isp">Verizon</div>
             </div>
         </div>
 
