@@ -4,9 +4,20 @@ function fetchIpInfo(ipAddress = '') {
     const url = `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`;
     
     fetch(url)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                // Show an alert if the response is not ok
+                alert(`Error: ${response.statusText}`);
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
         .then(data => {
-            console.log(data); // Check the full response in the console
+            // Check if the data contains the necessary fields
+            if (!data.ip || !data.location || !data.isp) {
+                alert('Error: No data found for the provided IP address.');
+                return;
+            }
             
             // Extract relevant data
             const ip = data.ip || 'N/A';
@@ -24,7 +35,7 @@ function fetchIpInfo(ipAddress = '') {
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
-            alert('Failed to retrieve data.');
+            alert('Failed to retrieve data. Please check your input or try again later.');
         });
 }
 
@@ -36,5 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // Handle the search functionality
 document.getElementById('fetchIpInfo').addEventListener('click', function() {
     const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
+    if (!ipAddress) {
+        alert('Please enter an IP address or domain.');
+        return;
+    }
     fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
 });
