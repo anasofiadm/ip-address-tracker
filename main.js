@@ -32,4 +32,7 @@ document.getElementById('searchIp').addEventListener('click', function() {
             console.error('Error fetching IP info:', error);
             alert('Failed to retrieve data.');
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchIpInfo(); // No IP address provided, so it will use the client's public IP
 });
