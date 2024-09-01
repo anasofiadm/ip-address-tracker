@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Handle the search functionality
-document.getElementById('fetchIpInfo').addEventListener('click', function() {
+document.getElementById('searchIp').addEventListener('click', function() {
     const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
     if (!ipAddress) {
         alert('Please enter an IP address or domain.');
