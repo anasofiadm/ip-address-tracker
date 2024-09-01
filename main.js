@@ -1,7 +1,6 @@
 document.getElementById('searchIp').addEventListener('click', function() {
-    // Replace 'YOUR_API_KEY' with your actual API key.
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
-    const ipAddress = '8.8.8.8'; // You can replace this with any IP or leave it empty to use the client IP.
+    const ipAddress = document.getElementById('ipInput').value || ''; // Get the IP address from input or default to client's IP
     
     // API endpoint with query parameters
     const url = `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`;
