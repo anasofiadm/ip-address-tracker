@@ -1,11 +1,9 @@
-document.getElementById('searchIp').addEventListener('click', function() {
+// Function to fetch and display IP info
+function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
-    const ipAddress = document.getElementById('ipInput').value || ''; // Get the IP address from input or default to client's IP
-    
-    // API endpoint with query parameters
+    // Default URL uses client's public IP address if no IP is provided
     const url = `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`;
     
-    // Fetch the data from the API
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -17,22 +15,27 @@ document.getElementById('searchIp').addEventListener('click', function() {
             const region = data.location.region;
             const timezone = data.location.timezone;
             const isp = data.isp;
-            
-            // Display the information in an alert
-            //alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}`);
             const location = `${country}, ${region}`;
+            
             // Update the HTML elements with the data
             document.getElementById('ipAddress').innerText = `${ip}`;
             document.getElementById('location').innerText = `${location}`;
             document.getElementById('timeZone').innerText = `${timezone}`;
             document.getElementById('isp').innerText = `${isp}`;
-        
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
             alert('Failed to retrieve data.');
         });
+}
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchIpInfo(); // No IP address provided, so it will use the client's public IP
+// Fetch and display user's IP info on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchIpInfo(); // No IP address provided, so it will use the client's public IP
+});
+
+// Handle the search functionality
+document.getElementById('fetchIpInfo').addEventListener('click', function() {
+    const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
+    fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
 });
