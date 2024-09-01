@@ -17,10 +17,9 @@ document.getElementById('searchIp').addEventListener('click', function() {
             const region = data.location.region;
             const timezone = data.location.timezone;
             const isp = data.isp;
-            const domains = data.domains ? data.domains.join(', ') : 'No domains found';
             
             // Display the information in an alert
-            alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}\nDomains: ${domains}`);
+            alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}`);
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
