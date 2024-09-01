@@ -7,6 +7,7 @@
     <title>IP Address Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <style>
         body {
@@ -146,6 +147,11 @@
     z-index: -1; /* Ensure map is behind other elements */
 }
 
+#map {
+            height: 100vh;
+            width: 100%;
+        }
+
 /* Responsive Design */
 @media (max-width: 375px) {
     body {
@@ -225,6 +231,7 @@
             Google Maps Integration (Sample Map)
         </div>
     </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="./main.js"></script>
 </body>
 

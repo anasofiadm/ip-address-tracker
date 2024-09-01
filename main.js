@@ -56,7 +56,34 @@ document.getElementById('searchIp').addEventListener('click', function() {
 
 
 
-var map = L.map('map', {
-    center: [51.505, -0.09],
-    zoom: 13
-});
+// main.js
+
+// Initialize the map
+const map = L.map('map').setView([51.505, -0.09], 13); // Coordinates for London, zoom level 13
+
+// Add a tile layer to the map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Add a marker
+L.marker([51.5, -0.09]).addTo(map)
+    .bindPopup('<b>Hello world!</b><br>I am a popup.')
+    .openPopup();
+
+// Add a circle
+L.circle([51.508, -0.11], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+}).addTo(map);
+
+// Add a polygon
+L.polygon([
+    [51.509, -0.08],
+    [51.503, -0.06],
+    [51.51, -0.047]
+]).addTo(map)
+    .bindPopup('I am a polygon.');
+
