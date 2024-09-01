@@ -1,4 +1,4 @@
-document.getElementById('fetchIpInfo').addEventListener('click', function() {
+document.getElementById('searchIp').addEventListener('click', function() {
     // Replace 'YOUR_API_KEY' with your actual API key.
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
     const ipAddress = '8.8.8.8'; // You can replace this with any IP or leave it empty to use the client IP.
