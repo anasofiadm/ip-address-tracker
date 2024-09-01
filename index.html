@@ -156,47 +156,76 @@
 @media (max-width: 375px) {
     body {
         background-image: url('./images/pattern-bg-mobile.png');
-        background-size: cover; /* Ensure background image covers entire screen */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center; /* Keep background pattern at the top */
+        margin: 0;
+        padding: 0;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex: 1; /* Allow container to expand and fill available space */
+        padding: 20px;
     }
 
     .tracker-title {
         font-size: 20px;
-        margin-bottom: 15px; /* Reduce margin for better spacing */
+        margin-bottom: 15px;
+        color: white;
+        text-align: center;
     }
 
     .search-bar {
-        flex-direction: column; /* Stack input and button vertically */
-        align-items: center; /* Center align items */
+        display: flex;
+        align-items: center; /* Align input and button on the same line */
+        margin-bottom: 15px;
     }
 
     .search-bar input[type="text"] {
-        width: 100%;
-        max-width: 100%; /* Ensure input takes full width */
+        width: calc(100% - 100px); /* Adjust width to fit input and button */
         font-size: 16px;
-        border-radius: 10px; /* Consistent rounding for mobile */
-        margin-bottom: 10px; /* Add space between input and button */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px 0 0 10px;
+        margin-right: -1px; /* Remove spacing between input and button */
     }
 
     .search-bar button {
-        width: 100%;
-        max-width: 100%; /* Ensure button takes full width */
+        width: 100px; /* Fixed width for button */
+        padding: 10px;
+        background-color: black;
+        border: none;
+        border-radius: 0 10px 10px 0;
+        color: white;
         font-size: 16px;
-        padding: 10px 0; /* Vertical padding for better touch target */
-        border-radius: 10px; /* Consistent rounding for mobile */
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-bar button:hover {
+        background-color: hsl(0, 0%, 17%);
     }
 
     .info-rectangle {
+        display: flex;
         flex-direction: column;
         padding: 15px;
         border-radius: 8px; /* Slightly less rounding for mobile */
         max-width: 100%;
+        margin-bottom: 15px; /* Space above map */
     }
 
     .info-col {
         flex: none;
         text-align: center;
         border-right: none;
-        margin: 10px 0; /* Increased margin for better spacing */
+        margin: 5px 0;
         padding: 5px 0; /* Add padding for better spacing */
     }
 
@@ -205,12 +234,13 @@
     }
 
     .map-container {
-        line-height: normal;
-        padding: 10px; /* Reduced padding for mobile */
-        height: 200px; /* Fixed height for mobile, adjust as needed */
-        top: 0; /* Adjust position for mobile view */
+        height: 200px; /* Fixed height for mobile */
         background-color: lightgrey; /* Ensure map container background color is visible */
-        overflow: hidden; /* Hide any overflow content */
+        text-align: center;
+        line-height: 200px; /* Center text vertically if any */
+        color: darkgrey;
+        font-size: 18px;
+        z-index: -1; /* Ensure map is behind other elements */
     }
 
     #map {
