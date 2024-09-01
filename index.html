@@ -156,32 +156,48 @@
 @media (max-width: 375px) {
     body {
         background-image: url('./images/pattern-bg-mobile.png');
+        background-size: cover; /* Ensure background image covers entire screen */
     }
 
     .tracker-title {
         font-size: 20px;
+        margin-bottom: 15px; /* Reduce margin for better spacing */
+    }
+
+    .search-bar {
+        flex-direction: column; /* Stack input and button vertically */
+        align-items: center; /* Center align items */
     }
 
     .search-bar input[type="text"] {
+        width: 100%;
+        max-width: 100%; /* Ensure input takes full width */
         font-size: 16px;
+        border-radius: 10px; /* Consistent rounding for mobile */
+        margin-bottom: 10px; /* Add space between input and button */
     }
 
     .search-bar button {
+        width: 100%;
+        max-width: 100%; /* Ensure button takes full width */
         font-size: 16px;
+        padding: 10px 0; /* Vertical padding for better touch target */
+        border-radius: 10px; /* Consistent rounding for mobile */
     }
 
     .info-rectangle {
         flex-direction: column;
         padding: 15px;
-        border-radius: 10px; /* Less rounding for mobile */
-        max-width: 100%; /* Full width on mobile */
+        border-radius: 8px; /* Slightly less rounding for mobile */
+        max-width: 100%;
     }
 
     .info-col {
         flex: none;
         text-align: center;
         border-right: none;
-        margin: 5px 0;
+        margin: 10px 0; /* Increased margin for better spacing */
+        padding: 5px 0; /* Add padding for better spacing */
     }
 
     .info-col:not(:last-child)::after {
@@ -190,11 +206,19 @@
 
     .map-container {
         line-height: normal;
-        padding: 20px;
-        height: auto;
-        top: 0; /* Adjust for mobile view */
+        padding: 10px; /* Reduced padding for mobile */
+        height: 200px; /* Fixed height for mobile, adjust as needed */
+        top: 0; /* Adjust position for mobile view */
+        background-color: lightgrey; /* Ensure map container background color is visible */
+        overflow: hidden; /* Hide any overflow content */
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
     }
 }
+
 
     </style>
 </head>
