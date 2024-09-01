@@ -53,3 +53,10 @@ document.getElementById('searchIp').addEventListener('click', function() {
     }
     fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
 });
+
+
+
+var map = L.map('map', {
+    center: [51.505, -0.09],
+    zoom: 13
+});
