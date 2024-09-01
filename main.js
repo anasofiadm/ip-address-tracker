@@ -19,7 +19,14 @@ document.getElementById('searchIp').addEventListener('click', function() {
             const isp = data.isp;
             
             // Display the information in an alert
-            alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}`);
+            //alert(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nTimezone: ${timezone}\nISP: ${isp}`);
+            const location = `${country}, ${region}`;
+            // Update the HTML elements with the data
+            document.getElementById('ipAddress').innerText = `IP Address: ${ip}`;
+            document.getElementById('location').innerText = `Location: ${location}`;
+            document.getElementById('timeZone').innerText = `Time Zone: ${timezone}`;
+            document.getElementById('isp').innerText = `ISP: ${isp}`;
+        
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
