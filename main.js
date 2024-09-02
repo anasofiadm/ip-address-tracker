@@ -57,7 +57,7 @@ function fetchIpInfo(ipAddress = '') {
             const lng = data.location.lng; // Assuming the API provides longitude
 
             // Alert the latitude and longitude
-            alert(`Latitude: ${lat}, Longitude: ${lng}`);
+            //alert(`Latitude: ${lat}, Longitude: ${lng}`);
 
             // Update the HTML elements with the data
             document.getElementById('ipAddress').innerText = `${ip}`;
