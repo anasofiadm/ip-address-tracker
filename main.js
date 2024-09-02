@@ -9,7 +9,7 @@ docudocument.getElementById('searchIp').addEventListener('click', function() {
     }
 
     // Fetch geolocation data using a public API
-    fetch(`https://ipapi.co/${ipAddress}/json/`)
+    fetch(`https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
