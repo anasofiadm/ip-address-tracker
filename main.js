@@ -45,19 +45,18 @@ function fetchIpInfo(ipAddress = '') {
             const ip = data.ip || 'N/A';
             const country = data.location.country || 'N/A';
             const region = data.location.region || 'N/A';
+            const city = data.location.city || 'N/A';
             const timezone = data.location.timezone || 'N/A';
             const isp = data.isp || 'N/A';
-            const location = `${country}, ${region}`;
-            const lat = data.location.lat;
-            const lng = data.location.lng;
+            const address = `${city}, ${region}, ${country}`;
             
             document.getElementById('ipAddress').innerText = `${ip}`;
-            document.getElementById('location').innerText = `${location}`;
+            document.getElementById('location').innerText = `${address}`;
             document.getElementById('timeZone').innerText = `${timezone}`;
             document.getElementById('isp').innerText = `${isp}`;
 
-            // Update the map with the new location
-            updateMap(lat, lng);
+            // Update the map with the ISP's general location
+            updateMap(address);
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
@@ -66,14 +65,31 @@ function fetchIpInfo(ipAddress = '') {
 }
 
 // Function to update the map
-function updateMap(lat, lng) {
-    const map = L.map('map').setView([lat, lng], 13);
+function updateMap(address) {
+    const map = L.map('map').setView([0, 0], 13); // Default center
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
     }).addTo(map);
-    L.marker([lat, lng]).addTo(map)
-        .bindPopup('IP Location')
-        .openPopup();
+
+    // Geocode the address to get the lat/lng
+    fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1`)
+        .then(response => response.json())
+        .then(geoData => {
+            if (geoData.length > 0) {
+                const lat = geoData[0].lat;
+                const lon = geoData[0].lon;
+                map.setView([lat, lon], 13);
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`ISP Location: ${address}`)
+                    .openPopup();
+            } else {
+                alert('Unable to geocode the ISP address.');
+            }
+        })
+        .catch(error => {
+            console.error('Error geocoding address:', error);
+            alert('Failed to locate ISP address on the map.');
+        });
 }
 
 // Fetch and display user's IP info on page load
