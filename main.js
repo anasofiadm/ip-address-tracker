@@ -4,8 +4,7 @@ let map;
 // Function to initialize the map
 function initializeMap(lat, lng) {
     if (!map) {
-        map = L.map('map').setView([lat, lng], 13); // Set initial view with provided coordinates
-        openPopup();
+        map = L.map('map').setView([lat, lng], 13).openPopup(); // Set initial view with provided coordinates
         // Add a tile layer to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
