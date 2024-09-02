@@ -80,10 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle the search functionality
 document.getElementById('searchIp').addEventListener('click', function() {
-    const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
-    if (!ipAddress) {
+    if (!document.getElementById('ipInput').value.trim()) {
         alert('Please enter an IP address or domain.');
         return;
     }
-    fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
+    fetchIpInfo(document.getElementById('ipInput').value.trim()); // Fetch and display data for the entered IP address
 });
