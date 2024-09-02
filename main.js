@@ -21,12 +21,10 @@ document.getElementById('ipInput').addEventListener('input', function(e) {
             break;
         }
     }
-
-    if (isValid && segments[0] > 0) {
-        document.getElementById('errorMessage').style.display = 'none'; // Hide error message
-    } else {
-        document.getElementById('errorMessage').style.display = 'block'; // Show error message
+    if (!isValid || segments[0] <= 0) {
+        alert("Invalid input. Make sure to enter numbers with dots, starting with a number greater than 0.");
     }
+    
 });
 
 
