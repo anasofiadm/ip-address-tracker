@@ -4,7 +4,8 @@ let map;
 // Function to initialize the map
 function initializeMap(lat, lng) {
     if (!map) {
-        map = L.map('map').setView([lat, lng], 13).openPopup(); // Set initial view with provided coordinates
+        map = L.map('map').setView([lat, lng], 13); // Set initial view with provided coordinates
+
         // Add a tile layer to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -18,7 +19,7 @@ function updateMap(lat, lng) {
         // Update the existing map view
         map.setView([lat, lng], 13); // Zoom level set to 13 for city view
         L.marker([lat, lng]).addTo(map)
-            //.bindPopup('<b>Location:</b><br>This is the new location.')
+            .bindPopup('<b>Location:</b><br>This is the new location.')
             .openPopup();
     } else {
         // Initialize the map with the coordinates
@@ -56,7 +57,7 @@ function fetchIpInfo(ipAddress = '') {
             const lng = data.location.lng; // Assuming the API provides longitude
 
             // Alert the latitude and longitude
-            //alert(`Latitude: ${lat}, Longitude: ${lng}`);
+            alert(`Latitude: ${lat}, Longitude: ${lng}`);
 
             // Update the HTML elements with the data
             document.getElementById('ipAddress').innerText = `${ip}`;
@@ -80,9 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Handle the search functionality
 document.getElementById('searchIp').addEventListener('click', function() {
-    if (!document.getElementById('ipInput').value.trim()) {
+    const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
+    if (!ipAddress) {
         alert('Please enter an IP address or domain.');
         return;
     }
-    fetchIpInfo(document.getElementById('ipInput').value.trim()); // Fetch and display data for the entered IP address
+    fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
 });
