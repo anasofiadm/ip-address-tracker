@@ -1,37 +1,38 @@
-// Function to fetch and display IP info
+// Function to fetch and display IP info and initialize the map
 function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
-    const url = `https://geo.ipify.org/api/v2/country?apiKey=${apiKey}&ipAddress=${ipAddress}`;
-    
+    const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=${ipAddress}`;
+
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                // Show an alert if the response is not ok
                 alert(`Error: ${response.statusText}`);
                 throw new Error('Network response was not ok.');
             }
             return response.json();
         })
         .then(data => {
-            // Check if the data contains the necessary fields
             if (!data.ip || !data.location || !data.isp) {
                 alert('Error: No data found for the provided IP address.');
                 return;
             }
-            
-            // Extract relevant data
+
             const ip = data.ip || 'N/A';
             const country = data.location.country || 'N/A';
             const region = data.location.region || 'N/A';
+            const city = data.location.city || 'N/A';
             const timezone = data.location.timezone || 'N/A';
             const isp = data.isp || 'N/A';
-            const location = `${country}, ${region}`;
-            
-            // Update the HTML elements with the data
+            const location = `${city}, ${region}, ${country}`;
+
+            // Fill the columns with the information
             document.getElementById('ipAddress').innerText = `${ip}`;
             document.getElementById('location').innerText = `${location}`;
             document.getElementById('timeZone').innerText = `${timezone}`;
             document.getElementById('isp').innerText = `${isp}`;
+
+            // Use the city, region, and country to geocode and get lat/lng
+            geocodeLocation(location);
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
@@ -39,51 +40,58 @@ function fetchIpInfo(ipAddress = '') {
         });
 }
 
-// Fetch and display user's IP info on page load
-document.addEventListener('DOMContentLoaded', () => {
-    fetchIpInfo(); // Fetch info for client's public IP address
-});
+// Function to geocode location using OpenStreetMap's Nominatim API
+function geocodeLocation(location) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
 
-// Handle the search functionality
-document.getElementById('searchIp').addEventListener('click', function() {
-    const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
-    if (!ipAddress) {
-        alert('Please enter an IP address or domain.');
-        return;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                const lat = data[0].lat;
+                const lon = data[0].lon;
+                updateMap(lat, lon); // Update the map with the geocoded coordinates
+            } else {
+                alert('Location not found on the map.');
+                console.error('No geocoding results for the location:', location);
+            }
+        })
+        .catch(error => {
+            console.error('Error geocoding location:', error);
+            alert('Failed to geocode location.');
+        });
+}
+
+// Function to initialize or update the map
+function updateMap(lat, lon) {
+    if (window.map) {
+        map.setView([lat, lon], 13); // If the map already exists, just update its view
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup('<b>Your Location!</b><br>This is where you are.')
+            .openPopup();
+    } else {
+        // Initialize the map for the first time
+        window.map = L.map('map').setView([lat, lon], 13);
+
+        // Add a tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker at the geocoded location
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup('<b>Your Location!</b><br>This is where you are.')
+            .openPopup();
     }
-    fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
+}
+
+// Fetch and display user's IP info and map on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchIpInfo(); // Fetch info for client's public IP address when the page loads
 });
 
-
-
-// main.js
-
-// Initialize the map
-const map = L.map('map').setView([51.505, -0.09], 13); // Coordinates for London, zoom level 13
-
-// Add a tile layer to the map
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Add a marker
-L.marker([51.5, -0.09]).addTo(map)
-    .bindPopup('<b>Hello world!</b><br>I am a popup.')
-    .openPopup();
-
-// Add a circle
-L.circle([51.508, -0.11], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(map);
-
-// Add a polygon
-L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
-]).addTo(map)
-    .bindPopup('I am a polygon.');
-
+// Handle the IP search button click
+document.getElementById('searchIp').addEventListener('click', () => {
+    const ipInput = document.getElementById('ipInput').value;
+    fetchIpInfo(ipInput); // Fetch info and update the map for the entered IP address
+});
