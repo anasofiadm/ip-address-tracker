@@ -1,4 +1,47 @@
-document.getElementById('ipInput').addEventListener('input', function(e) {
+docudocument.getElementById('searchIp').addEventListener('click', function() {
+    const ipAddress = document.getElementById('ipInput').value;
+
+    // Validate IP Address
+    const ipRegex = /^(?!0)(?!.*\.$)((1?\d?\d|2[0-4]\d|25[0-5])\.){3}(1?\d?\d|2[0-4]\d|25[0-5])$/;
+    if (!ipRegex.test(ipAddress)) {
+        alert("Please enter a valid IP address.");
+        return;
+    }
+
+    // Fetch geolocation data using a public API
+    fetch(`https://ipapi.co/${ipAddress}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("Unable to find location for this IP address.");
+                return;
+            }
+
+            const { latitude, longitude } = data;
+            updateMap(latitude, longitude);
+        })
+        .catch(error => {
+            console.error('Error fetching IP data:', error);
+            alert("There was an error processing your request.");
+        });
+});
+
+function updateMap(latitude, longitude) {
+    const map = L.map('map').setView([latitude, longitude], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    L.marker([latitude, longitude]).addTo(map)
+        .bindPopup('Location found.')
+        .openPopup();
+}
+
+
+ment.getElementById('ipInput').addEventListener('input', function(e) {
+    
+    
     const value = this.value;
 
     // Remove any invalid characters (allow only digits and dots)
