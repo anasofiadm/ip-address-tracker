@@ -278,6 +278,19 @@
         height: 100%;
         width: 100%;
     }
+
+    .leaflet-control-zoom {
+        top: auto; /* Remove default top position */
+        bottom: 10px; /* Position from the bottom */
+        right: 10px; /* Position from the right */
+        left: auto; /* Remove default left position */
+        margin: 0;
+    }
+
+    /* Ensure other map controls are also repositioned if needed */
+    .leaflet-control {
+        z-index: 1000; /* Ensure controls are on top of other elements */
+    }
 }
 
     </style>
