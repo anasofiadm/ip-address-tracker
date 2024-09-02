@@ -166,121 +166,119 @@
             top: 230px;
         }
 
-        /* Responsive Design */
-        @media (max-width: 375px) {
-            body {
-                background-image: url('./images/pattern-bg-mobile.png');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: top center;
-                /* Keep background pattern at the top */
-                margin: 0;
-                padding: 0;
-                height: 100vh;
-                /* Full viewport height */
-                display: flex;
-                flex-direction: column;
-            }
+       /* Mobile and Tablet Responsive Design */
+@media (max-width: 700px) {
+    body {
+        background-image: url('./images/pattern-bg-mobile.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: top center;
+        /* Keep background pattern at the top */
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        /* Full viewport height */
+        display: flex;
+        flex-direction: column;
+    }
 
-            .container {
-                flex: 1;
-                /* Allow container to expand and fill available space */
-                padding: 20px;
-            }
+    .container {
+        flex: 1;
+        /* Allow container to expand and fill available space */
+        padding: 20px;
+        box-sizing: border-box;
+    }
 
-            .tracker-title {
-                font-size: 20px;
-                margin-bottom: 15px;
-                color: white;
-                text-align: center;
-            }
+    .tracker-title {
+        font-size: 24px; /* Increased font size for larger screens */
+        margin-bottom: 20px; /* Increased spacing */
+        color: white;
+        text-align: center;
+    }
 
-            .search-bar {
-                display: flex;
-                align-items: center;
-                /* Align input and button on the same line */
-                margin-bottom: 15px;
-            }
+    .search-bar {
+        display: flex;
+        align-items: center;
+        /* Align input and button on the same line */
+        margin-bottom: 20px; /* Increased spacing */
+    }
 
-            .search-bar input[type="text"] {
-                width: calc(100% - 5px);
-                /* Adjust width to fit input and button */
-                font-size: 16px;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 10px 0 0 10px;
-                margin-right: -1px;
-                /* Remove spacing between input and button */
-            }
+    .search-bar input[type="text"] {
+        flex: 1;
+        /* Allow input to expand and fill available space */
+        font-size: 18px; /* Slightly larger font size */
+        padding: 12px; /* Increased padding */
+        border: 1px solid #ccc;
+        border-radius: 10px 0 0 10px;
+        margin-right: -1px;
+        /* Remove spacing between input and button */
+    }
 
-            .search-bar button {
-                width: 100px;
-                /* Fixed width for button */
-                padding: 10px;
-                background-color: black;
-                border: none;
-                border-radius: 0 10px 10px 0;
-                color: white;
-                font-size: 16px;
-                font-weight: 700;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+    .search-bar button {
+        width: 120px; /* Adjusted width for larger screens */
+        padding: 12px; /* Increased padding */
+        background-color: black;
+        border: none;
+        border-radius: 0 10px 10px 0;
+        color: white;
+        font-size: 18px; /* Slightly larger font size */
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-            .search-bar button:hover {
-                background-color: hsl(0, 0%, 17%);
-            }
+    .search-bar button:hover {
+        background-color: hsl(0, 0%, 17%);
+    }
 
-            .info-rectangle {
-                display: flex;
-                flex-direction: column;
-                padding: 15px;
-                border-radius: 8px;
-                /* Slightly less rounding for mobile */
-                max-width: 100%;
-                margin-bottom: 15px;
-                /* Space above map */
-                background-color: white;
-            }
+    .info-rectangle {
+        display: flex;
+        flex-direction: column;
+        padding: 20px; /* Increased padding for larger screens */
+        border-radius: 8px;
+        /* Slightly less rounding for mobile */
+        max-width: 100%;
+        margin-bottom: 20px; /* Increased spacing above map */
+        /* Space above map */
+        background-color: white;
+    }
 
-            .info-col {
-                flex: none;
-                text-align: center;
-                border-bottom: 1px solid hsl(0, 0%, 59%);
-                /* Horizontal border for mobile */
-                margin: 5px 0;
-                padding: 10px 0;
-                /* Adjust padding for better spacing */
-            }
+    .info-col {
+        flex: none;
+        text-align: center;
+        border-bottom: 1px solid hsl(0, 0%, 59%);
+        /* Horizontal border for mobile */
+        margin: 10px 0; /* Increased spacing */
+        padding: 12px 0; /* Increased padding */
+        /* Adjust padding for better spacing */
+    }
 
-            .info-col:last-child {
-                border-bottom: none;
-                /* Remove bottom border for the last column */
-            }
-        }
+    .info-col:last-child {
+        border-bottom: none;
+        /* Remove bottom border for the last column */
+    }
 
-        .map-container {
-            height: 200px;
-            /* Fixed height for mobile */
-            background-color: lightgrey;
-            /* Ensure map container background color is visible */
-            text-align: center;
-            line-height: 200px;
-            /* Center text vertically if any */
-            color: darkgrey;
-            font-size: 18px;
-            z-index: -1;
-            /* Ensure map is behind other elements */
-        }
+    .map-container {
+        height: 300px; /* Increased height for larger screens */
+        /* Fixed height for mobile */
+        background-color: lightgrey;
+        /* Ensure map container background color is visible */
+        text-align: center;
+        line-height: 300px; /* Center text vertically if any */
+        color: darkgrey;
+        font-size: 20px; /* Increased font size */
+        margin-top: 20px; /* Increased margin to separate from other elements */
+        z-index: 1; /* Ensure map container is above other elements */
+    }
 
-        #map {
-            height: 100%;
-            width: 100%;
-            top: 260px;
-        }
-        
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+}
+
     </style>
 </head>
 
