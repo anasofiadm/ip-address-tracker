@@ -19,7 +19,7 @@ function updateMap(lat, lng) {
         // Update the existing map view
         map.setView([lat, lng], 13); // Zoom level set to 13 for city view
         L.marker([lat, lng]).addTo(map)
-            .bindPopup('<b>Location:</b><br>This is the new location.')
+            //.bindPopup('<b>Location:</b><br>This is the new location.')
             .openPopup();
     } else {
         // Initialize the map with the coordinates
