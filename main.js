@@ -30,6 +30,9 @@ function fetchIpInfo(ipAddress = '') {
             const lat = data.location.lat; // Assuming the API provides latitude
             const lng = data.location.lng; // Assuming the API provides longitude
 
+            // Alert the latitude and longitude
+            alert(`Latitude: ${lat}, Longitude: ${lng}`);
+
             // Update the HTML elements with the data
             document.getElementById('ipAddress').innerText = `${ip}`;
             document.getElementById('location').innerText = `${location}`;
@@ -37,7 +40,7 @@ function fetchIpInfo(ipAddress = '') {
             document.getElementById('isp').innerText = `${isp}`;
 
             // Update the map with the new location
-            //updateMap(lat, lng);
+            updateMap(lat, lng);
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
@@ -55,7 +58,7 @@ function updateMap(lat, lng) {
             .openPopup();
     } else {
         // Initialize the map with the coordinates
-        window.ap = L.map('map').setView([lat, lng], 13);
+        window.map = L.map('map').setView([lat, lng], 13);
 
         // Add a tile layer to the map
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
