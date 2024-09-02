@@ -1,3 +1,32 @@
+// Initialize the map globally
+let map;
+
+// Function to initialize the map
+function initializeMap(lat, lng) {
+    if (!map) {
+        map = L.map('map').setView([lat, lng], 13); // Set initial view with provided coordinates
+
+        // Add a tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    }
+}
+
+// Function to update the map based on latitude and longitude
+function updateMap(lat, lng) {
+    if (map) {
+        // Update the existing map view
+        map.setView([lat, lng], 13); // Zoom level set to 13 for city view
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup('<b>Location:</b><br>This is the new location.')
+            .openPopup();
+    } else {
+        // Initialize the map with the coordinates
+        initializeMap(lat, lng);
+    }
+}
+
 // Function to fetch and display IP info
 function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
