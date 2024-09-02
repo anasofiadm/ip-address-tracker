@@ -6,29 +6,29 @@ function fetchIpInfo(ipAddress = '') {
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                // Show an alert if the response is not ok
                 alert(`Error: ${response.statusText}`);
                 throw new Error('Network response was not ok.');
             }
             return response.json();
         })
         .then(data => {
-            // Check if the data contains the necessary fields
             if (!data.ip || !data.location || !data.isp) {
                 alert('Error: No data found for the provided IP address.');
                 return;
             }
 
-            // Extract relevant data
             const ip = data.ip || 'N/A';
             const country = data.location.country || 'N/A';
             const region = data.location.region || 'N/A';
-            const city = data.location.city || 'N/A'; // Added city
+            const city = data.location.city || 'N/A';
             const timezone = data.location.timezone || 'N/A';
             const isp = data.isp || 'N/A';
             const location = `${city}, ${region}, ${country}`;
             const lat = data.location.lat; // Assuming the API provides latitude
             const lng = data.location.lng; // Assuming the API provides longitude
+
+            // Alert the latitude and longitude
+            alert(`Latitude: ${lat}, Longitude: ${lng}`);
 
             // Update the HTML elements with the data
             document.getElementById('ipAddress').innerText = `${ip}`;
@@ -37,36 +37,12 @@ function fetchIpInfo(ipAddress = '') {
             document.getElementById('isp').innerText = `${isp}`;
 
             // Update the map with the new location
-            //updateMap(lat, lng);
+            updateMap(lat, lng);
         })
         .catch(error => {
             console.error('Error fetching IP info:', error);
             alert('Failed to retrieve data. Please check your input or try again later.');
         });
-}
-
-// Function to update the map based on latitude and longitude
-function updateMap(lat, lng) {
-    if (window.map) {
-        // Update the existing map view
-        map.setView([lat, lng], 13); // Zoom level set to 13 for city view
-        L.marker([lat, lng]).addTo(map)
-            .bindPopup('<b>Location:</b><br>This is the new location.')
-            .openPopup();
-    } else {
-        // Initialize the map with the coordinates
-        window.ap = L.map('map').setView([lat, lng], 13);
-
-        // Add a tile layer to the map
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Add a marker to the map
-        L.marker([lat, lng]).addTo(map)
-            .bindPopup('<b>Location:</b><br>This is the new location.')
-            .openPopup();
-    }
 }
 
 // Fetch and display user's IP info on page load
