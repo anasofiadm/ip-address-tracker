@@ -23,6 +23,7 @@ document.getElementById('ipInput').addEventListener('input', function(e) {
 });
 
 
+
 // Function to fetch and display IP info
 function fetchIpInfo(ipAddress = '') {
     const apiKey = 'at_TJFsnxUNfBaLGIQ3PM51EcVM0LkBV';
@@ -50,6 +51,7 @@ function fetchIpInfo(ipAddress = '') {
             const isp = data.isp || 'N/A';
             const address = `${city}, ${region}, ${country}`;
             
+            // Fill the columns with the information
             document.getElementById('ipAddress').innerText = `${ip}`;
             document.getElementById('location').innerText = `${address}`;
             document.getElementById('timeZone').innerText = `${timezone}`;
@@ -92,21 +94,17 @@ function updateMap(address) {
         });
 }
 
+// Event listener for the search button
+document.getElementById('searchButton').addEventListener('click', () => {
+    const ipAddress = document.getElementById('ipInput').value;
+    fetchIpInfo(ipAddress); // Fetch info for the provided IP address
+});
+
 // Fetch and display user's IP info on page load
 document.addEventListener('DOMContentLoaded', () => {
     fetchIpInfo(); // Fetch info for client's public IP address when the page loads
 });
 
-
-// Handle the search functionality
-document.getElementById('searchIp').addEventListener('click', function() {
-    const ipAddress = document.getElementById('ipInput').value.trim(); // Get IP address from input
-    if (!ipAddress) {
-        alert('Please enter an IP address or domain.');
-        return;
-    }
-    fetchIpInfo(ipAddress); // Fetch and display data for the entered IP address
-});
 
 
 
