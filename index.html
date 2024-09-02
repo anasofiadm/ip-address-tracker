@@ -187,6 +187,9 @@
         /* Allow container to expand and fill available space */
         padding: 20px;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        /* Ensure container stacks content vertically */
     }
 
     .tracker-title {
@@ -243,6 +246,8 @@
         margin-bottom: 20px; /* Increased spacing above map */
         /* Space above map */
         background-color: white;
+        flex: 1;
+        /* Allow info rectangle to grow and fill available space */
     }
 
     .info-col {
